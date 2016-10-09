@@ -1,21 +1,20 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace DrawsTable.Models
 {
     internal class DrawRow
     {
-         private Dictionary<int, DrawCell> cells;
+        private DrawCell[] cells;
 
         public DrawRow(int totalCells)
         {
-            cells = new Dictionary<int, DrawCell>(totalCells);
-            for (int i = 1; i <= totalCells; i++)
+            cells = new DrawCell[totalCells];
+            for (int i = 0; i < totalCells; i++)
             {
-                cells.Add(i, new DrawCell(DrawStyle.None));
+                cells[i] = new DrawCell(DrawStyle.None);
             }
         }
 
-        internal Dictionary<int, DrawCell> Cells
+        public DrawCell[] Cells
         {
             get
             {

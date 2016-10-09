@@ -6,13 +6,12 @@ namespace DrawsTable.Models
     {
         private DrawStyle _style;
 
-       
         public DrawCell(DrawStyle style)
         {
             _style = style;
         }
 
-        internal DrawStyle Style
+        public DrawStyle Style
         {
             get
             {

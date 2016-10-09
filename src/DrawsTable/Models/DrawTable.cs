@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace DrawsTable.Models
@@ -6,29 +7,39 @@ namespace DrawsTable.Models
     internal class DrawTable
     {
         private int _totalPlayers;
-        private Dictionary<int, DrawColumn> _columns;
-        private Dictionary<int, DrawRow> _rows;
+        private DrawColumn[] _columns;
+        private DrawRow[] _rows;
         private const int TotalMatchPlayers = 2;
         private int _totalLevels;
 
         public DrawTable(int totalPlayers)
         {
             this._totalPlayers = totalPlayers;
-            int totalColumns = _totalPlayers - 1;
-            this._columns = new Dictionary<int, DrawColumn>(totalColumns);
-            for (int i = 1; i <= totalColumns; i++)
-                _columns.Add(i, new DrawColumn("Column" + i));
-            int totalRows = (_totalPlayers * 2) - 2;
-            this._rows = new Dictionary<int, DrawRow>(totalRows);
-            for (int i = 1; i <= totalRows; i++)
-                _rows.Add(i, new DrawRow(_columns.Count));
-
             this._totalLevels = (int)Math.Log(
-                Convert.ToDouble(_totalPlayers),
-                Convert.ToDouble(TotalMatchPlayers));
+               Convert.ToDouble(_totalPlayers),
+               Convert.ToDouble(TotalMatchPlayers));
+            CreateColumns();
+            CreateRows();
+            SetupLayout();
         }
 
-        public Dictionary<int, DrawColumn> Columns
+        private void CreateRows()
+        {
+            int totalRows = (_totalPlayers * 2) - 2;
+            this._rows = new DrawRow[totalRows];
+            for (int i = 0; i < totalRows; i++)
+                _rows[i] = new DrawRow(_columns.Length);
+        }
+
+        private void CreateColumns()
+        {
+            int totalColumns = _totalPlayers - 1;
+            this._columns = new DrawColumn[totalColumns];
+            for (int i = 0; i < totalColumns; i++)
+                _columns[i] = new DrawColumn("Column" + i);
+        }
+
+        public DrawColumn[] Columns
         {
             get
             {
@@ -41,7 +52,7 @@ namespace DrawsTable.Models
             }
         }
 
-        public Dictionary<int, DrawRow> Rows
+        public DrawRow[] Rows
         {
             get
             {
@@ -80,29 +91,32 @@ namespace DrawsTable.Models
             }
         }
 
-        internal void SetupLayout()
+        private void SetupLayout()
         {
             int nextLevelIteration = 1;
             int currentNumberOfPlayers = _totalPlayers;
             int currentTotalOfMatches = currentNumberOfPlayers / TotalMatchPlayers;
-            int currentMatchLayoutInterval = Math.Abs((currentNumberOfPlayers * TotalMatchPlayers) - _rows.Count);
+            int currentMatchLayoutInterval = Math.Abs((currentNumberOfPlayers * TotalMatchPlayers) - _rows.Length);
             int nextMatchLayoutStartColumn = 1;
             int nextMatchLayoutStartRow = 1;
 
-            foreach (int columnKey in _columns.Keys)
+            for(int columnIndex = 0; columnIndex < _columns.Length; columnIndex++)
             {
-                if (columnKey == nextMatchLayoutStartColumn)
+                int columnPos = columnIndex + 1;
+                if (columnPos == nextMatchLayoutStartColumn)
                 {
                     // Set match cells
-                    foreach (KeyValuePair<int, DrawRow> row in _rows)
+                    for (int rowIndex = 0; rowIndex < _rows.Length; rowIndex++)
                     {
-                        if ((columnKey == nextMatchLayoutStartColumn) &&
-                            (row.Key == nextMatchLayoutStartRow))
+                        int rowPos = rowIndex + 1;
+                        if ((columnPos == nextMatchLayoutStartColumn) &&
+                            (rowPos == nextMatchLayoutStartRow))
                         {
                             // Set match Two contiguous cells
-                            row.Value.Cells[columnKey].Style = DrawStyle.Match;
-                            int contiguousRow = row.Key + 1;
-                            _rows[contiguousRow].Cells[columnKey].Style = DrawStyle.Match;
+                            _rows[rowIndex].Cells[columnIndex].Style = DrawStyle.Match;
+                            int contiguousRowIndex = rowIndex + 1;
+                            int contiguousRow = rowPos + 1;
+                            _rows[contiguousRowIndex].Cells[columnIndex].Style = DrawStyle.Match;
                             nextMatchLayoutStartRow = contiguousRow + currentMatchLayoutInterval + 1;
                         }
                     }
@@ -110,12 +124,20 @@ namespace DrawsTable.Models
                     nextLevelIteration++;
                     currentNumberOfPlayers = _totalPlayers / TotalMatchPlayers;
                     currentTotalOfMatches = currentNumberOfPlayers / TotalMatchPlayers;
-                    currentMatchLayoutInterval = Math.Abs((currentNumberOfPlayers * TotalMatchPlayers) - _rows.Count);
+                    currentMatchLayoutInterval = Math.Abs((currentNumberOfPlayers * TotalMatchPlayers) - _rows.Length);
                     nextMatchLayoutStartColumn = nextMatchLayoutStartColumn + _totalLevels;
                     nextMatchLayoutStartRow = ((int)Math.Pow(nextLevelIteration, TotalMatchPlayers)) - 1;    
                 }
             }
         }
 
+        [JsonIgnore]
+        public string Json
+        {
+            get 
+            {
+                return JsonConvert.SerializeObject(this, Formatting.Indented);
+            } 
+        }
     }
 }

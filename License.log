@@ -485,3 +485,29 @@
     Web method running: [https://app.vsspsext.visualstudio.com/_apis/Profile/Profiles/me/Avatar?size=Large] (GET)Avatar[Profile]
     Web method response: [https://app.vsspsext.visualstudio.com/_apis/Profile/Profiles/me/Avatar?size=Small] (GET)Avatar[Profile] 237 ms
     Web method response: [https://app.vsspsext.visualstudio.com/_apis/Profile/Profiles/me/Avatar?size=Large] (GET)Avatar[Profile] 318 ms
+    Where::Git
+    Where::CredentialManager
+       credential manager found at 'C:\Program Files\Git\mingw64\libexec\git-core\git-credential-manager.exe'.
+    Where::CredentialManager
+       credential manager found at 'C:\Program Files\Git\mingw64\libexec\git-core\git-credential-manager.exe'.
+    Failed to check for updates.
+    Failed to check for updates.
+    Failed to check for updates.
+    Failed to check for updates.
+    Failed to check for updates.
+    Failed to check for updates.
+    Failed to check for updates.
+    Failed to check for updates.
+    Failed to check for updates.
+    Failed to check for updates.
+    Web method running: [https://app.vsspsext.visualstudio.com/_apis/Profile/Profiles/me/Attributes?partition=VisualStudio.14_PreferredProfile&withcoreattributes=true&coreattributes=Minimal%2CEmail%2CAvatar%2CDisplayName%2CAll&modifiedafterrevision=503015] (GET)Attributes[Profile]
+    Web method response: [https://app.vsspsext.visualstudio.com/_apis/Profile/Profiles/me/Attributes?partition=VisualStudio.14_PreferredProfile&withcoreattributes=true&coreattributes=Minimal%2CEmail%2CAvatar%2CDisplayName%2CAll&modifiedafterrevision=503015] (GET)Attributes[Profile] 724 ms
+    Web method running: [https://app.vsspsext.visualstudio.com/_apis/Profile/Profiles/me/Avatar?size=Small] (GET)Avatar[Profile]
+    Web method running: [https://app.vsspsext.visualstudio.com/_apis/Profile/Profiles/me/Avatar?size=Large] (GET)Avatar[Profile]
+    Web method response: [https://app.vsspsext.visualstudio.com/_apis/Profile/Profiles/me/Avatar?size=Small] (GET)Avatar[Profile] 346 ms
+    Web method response: [https://app.vsspsext.visualstudio.com/_apis/Profile/Profiles/me/Avatar?size=Large] (GET)Avatar[Profile] 1014 ms
+    Failed to check for updates.
+    Failed to check for updates.
+    Failed to check for updates.
+    Failed to check for updates.
+    Failed to check for updates.
