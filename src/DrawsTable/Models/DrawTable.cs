@@ -130,14 +130,5 @@ namespace DrawsTable.Models
                 }
             }
         }
-
-        [JsonIgnore]
-        public string Json
-        {
-            get 
-            {
-                return JsonConvert.SerializeObject(this, Formatting.Indented);
-            } 
-        }
     }
 }
