@@ -10,6 +10,8 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         },
+        paging: false,
+        ordering: false,
         columns: [
             { data: "cells.0.style" },
             { data: "cells.1.style" },
