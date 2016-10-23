@@ -35,7 +35,9 @@ var draw = {
             $.each(data.cells, function (i, val) {
                 var rowCell = val;
                 if (rowCell.style == "1")
-                    $(row).find("td").eq(i).addClass('match');
+                    $(row).find("td").eq(i).addClass('matchFirstPlayer');
+                else if (rowCell.style == "2")
+                    $(row).find("td").eq(i).addClass('matchSecondPlayer');
             });
         }
 
@@ -45,6 +47,7 @@ var draw = {
                 paging: false,
                 ordering: false,
                 searching: false,
+                info: false,
                 columns: _columnsProps,
                 rowCallback: function( row, data, index ) {
                         SetRowCellStyle(row, data, index)

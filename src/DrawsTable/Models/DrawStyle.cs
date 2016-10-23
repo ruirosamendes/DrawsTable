@@ -1,8 +1,12 @@
 ﻿namespace DrawsTable.Models
 {
-    internal enum DrawStyle : int
+    internal enum DrawCellType : int
     {
         None = 0,
-        Match = 1
+        FirstPlayer = 1,
+        SecondPlayer = 2,
+        MatchOddConnector = 3,
+        MatchEvenConnector = 4,
+        MatchCenterConnector = 5
     }
 }

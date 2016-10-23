@@ -10,7 +10,7 @@ namespace DrawsTable.Models
             cells = new DrawCell[totalCells];
             for (int i = 0; i < totalCells; i++)
             {
-                cells[i] = new DrawCell(DrawStyle.None);
+                cells[i] = new DrawCell(DrawCellType.None);
             }
         }
 

@@ -4,14 +4,14 @@ namespace DrawsTable.Models
 {
     internal class DrawCell
     {
-        private DrawStyle _style;
+        private DrawCellType _style;
 
-        public DrawCell(DrawStyle style)
+        public DrawCell(DrawCellType style)
         {
             _style = style;
         }
 
-        public DrawStyle Style
+        public DrawCellType Style
         {
             get
             {

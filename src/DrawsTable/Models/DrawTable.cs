@@ -95,7 +95,7 @@ namespace DrawsTable.Models
         {
             int nextLevelIteration = 1;
             int currentNumberOfPlayers = _totalPlayers;
-            int currentTotalOfMatches = currentNumberOfPlayers / TotalMatchPlayers;
+            int currentTotalOfMatches = currentNumberOfPlayers / nextLevelIteration;
             int currentMatchLayoutInterval = Math.Abs((currentNumberOfPlayers * TotalMatchPlayers) - _rows.Length);
             int nextMatchLayoutStartColumn = 1;
             int nextMatchLayoutStartRow = 1;
@@ -113,20 +113,20 @@ namespace DrawsTable.Models
                             (rowPos == nextMatchLayoutStartRow))
                         {
                             // Set match Two contiguous cells
-                            _rows[rowIndex].Cells[columnIndex].Style = DrawStyle.Match;
+                            _rows[rowIndex].Cells[columnIndex].Style = DrawCellType.FirstPlayer;
                             int contiguousRowIndex = rowIndex + 1;
                             int contiguousRow = rowPos + 1;
-                            _rows[contiguousRowIndex].Cells[columnIndex].Style = DrawStyle.Match;
+                            _rows[contiguousRowIndex].Cells[columnIndex].Style = DrawCellType.SecondPlayer;
                             nextMatchLayoutStartRow = contiguousRow + currentMatchLayoutInterval + 1;
                         }
                     }
                     // Setup next level iteration
                     nextLevelIteration++;
-                    currentNumberOfPlayers = _totalPlayers / TotalMatchPlayers;
+                    currentNumberOfPlayers = _totalPlayers / nextLevelIteration;
                     currentTotalOfMatches = currentNumberOfPlayers / TotalMatchPlayers;
                     currentMatchLayoutInterval = Math.Abs((currentNumberOfPlayers * TotalMatchPlayers) - _rows.Length);
                     nextMatchLayoutStartColumn = nextMatchLayoutStartColumn + _totalLevels;
-                    nextMatchLayoutStartRow = ((int)Math.Pow(nextLevelIteration, TotalMatchPlayers)) - 1;    
+                    nextMatchLayoutStartRow = ((int)Math.Pow(nextLevelIteration, TotalMatchPlayers)) - (nextLevelIteration - 1);    
                 }
             }
         }

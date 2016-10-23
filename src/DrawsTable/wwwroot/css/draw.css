@@ -1,4 +1,13 @@
-﻿.match {
+﻿.matchFirstPlayer {
     background-color: aqua;
-    border-style:solid
+    border-top-style:solid;
+    border-left-style:solid;
+    border-right-style:solid;
+}
+
+.matchSecondPlayer {
+    background-color: aqua;
+    border-bottom-style:solid;
+    border-left-style:solid;
+    border-right-style:solid;
 }
