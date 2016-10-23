@@ -13,8 +13,19 @@
 </div>
 
 @section Styles {
+    <environment names="Development">
+         <link rel="stylesheet" href="~/css/draw.css" />
+    </environment>
+    <environment names="Staging,Production">
+        <link rel="stylesheet" href="~/css/draw.min.css" />
+    </environment>
 }
 @section Scripts {
+    <environment names="Development">
         <script src="~/js/draw.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/js/draw.min.js"></script>
+    </environment>
 }
 
