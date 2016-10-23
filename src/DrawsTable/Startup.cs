@@ -53,7 +53,7 @@ namespace DrawsTable
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Draw}/{action=Index}/{id?}");
             });
         }
     }

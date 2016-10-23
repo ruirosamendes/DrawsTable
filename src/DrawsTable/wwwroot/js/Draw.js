@@ -1,32 +1,60 @@
 ﻿
 $(document).ready(function () {
-    var serviceURL = '/Draw/Get';
-
-    $('#drawTable').DataTable({
-        ajax: {
-            type: "GET",
-            url: serviceURL,
-            dataSrc: 'rows',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json"
-        },
-        paging: false,
-        ordering: false,
-        columns: [
-            { data: "cells.0.style" },
-            { data: "cells.1.style" },
-            { data: "cells.2.style" },
-            { data: "cells.3.style" },
-            { data: "cells.4.style" },
-            { data: "cells.5.style" },
-            { data: "cells.6.style" }
-        ]
-    } );
+    var ajaxFunction = draw.GetData();
+    draw.Build(ajaxFunction);
+   
 });
 
+
 var draw = {
-    Show: function (e) {
-        
+
+
+
+    GetData: function () {
+        var serviceURL = '/Draw/Get';
+        return $.ajax({
+            type: "GET",
+            url: serviceURL,
+            data: param = "",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        });
+    },
+
+    Build: function (ajaxFunction)
+    {
+        var _columnsProps = [];
+
+        function CreateTableHeader (columns){
+            var tableHeaders;
+
+            $.each(columns, function (i, val) {
+                tableHeaders += "<th>" + val.name + "</th>";
+                _columnsProps.push({ data : "cells." + i +  ".style" })
+            });
+            $("#drawTableRowHeader").append(tableHeaders);
+        }
+
+        function LoadTable(rows) {
+            $('#drawTable').DataTable({
+                data: rows,
+                paging: false,
+                ordering: false,
+                searching: false,
+                columns: _columnsProps
+            });
+        }
+
+        ajaxFunction.done(function (data) {
+            CreateTableHeader(data.columns);
+            LoadTable(data.rows);
+        });
+
+        ajaxFunction.fail(function (error) {
+            //do stuff when error
+            alert(error);
+        });
     }
+
 
 }
