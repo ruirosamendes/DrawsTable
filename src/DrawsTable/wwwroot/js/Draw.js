@@ -1,14 +1,10 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
     var ajaxFunction = draw.GetData();
     draw.Build(ajaxFunction);
    
 });
 
-
 var draw = {
-
-
 
     GetData: function () {
         var serviceURL = '/Draw/Get';
@@ -35,13 +31,24 @@ var draw = {
             $("#drawTableRowHeader").append(tableHeaders);
         }
 
+        function SetRowCellStyle(row, data, index) {
+            $.each(data.cells, function (i, val) {
+                var rowCell = val;
+                if (rowCell.style == "1")
+                    $(row).find("td").eq(i).addClass('match');
+            });
+        }
+
         function LoadTable(rows) {
             $('#drawTable').DataTable({
                 data: rows,
                 paging: false,
                 ordering: false,
                 searching: false,
-                columns: _columnsProps
+                columns: _columnsProps,
+                rowCallback: function( row, data, index ) {
+                        SetRowCellStyle(row, data, index)
+                    }
             });
         }
 
