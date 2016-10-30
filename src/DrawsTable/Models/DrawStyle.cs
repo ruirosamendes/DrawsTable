@@ -5,8 +5,9 @@
         None = 0,
         FirstPlayer = 1,
         SecondPlayer = 2,
-        MatchOddConnector = 3,
-        MatchEvenConnector = 4,
-        MatchCenterConnector = 5
+        OddCornerConnector = 3,
+        EvenCornerConnector = 4,
+        VerticalConnector = 5,
+        HorizontalConnector = 6
     }
 }

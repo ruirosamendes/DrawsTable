@@ -1,13 +1,38 @@
-﻿.matchFirstPlayer {
+﻿.first_player {
     background-color: aqua;
     border-top-style:solid;
     border-left-style:solid;
     border-right-style:solid;
 }
 
-.matchSecondPlayer {
+.second_player {
     background-color: aqua;
     border-bottom-style:solid;
     border-left-style:solid;
     border-right-style:solid;
 }
+
+.odd_corner_connector {
+    border-top-style:solid;
+    border-right-style:solid;
+}
+
+.even_corner_connector {
+    border-right-style:solid;
+    border-bottom-style:solid;
+}
+
+.vertical_connector {
+    border-right-style:solid;
+}
+
+.horizontal_connector {
+    border-bottom-style:solid;
+}
+
+.match_column {
+    width: 200px
+}
+
+
+

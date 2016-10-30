@@ -35,9 +35,17 @@ var draw = {
             $.each(data.cells, function (i, val) {
                 var rowCell = val;
                 if (rowCell.style == "1")
-                    $(row).find("td").eq(i).addClass('matchFirstPlayer');
+                    $(row).find("td").eq(i).addClass('first_player');
                 else if (rowCell.style == "2")
-                    $(row).find("td").eq(i).addClass('matchSecondPlayer');
+                    $(row).find("td").eq(i).addClass('second_player');
+                else if (rowCell.style == "3")
+                    $(row).find("td").eq(i).addClass('odd_corner_connector');
+                else if (rowCell.style == "4")
+                    $(row).find("td").eq(i).addClass('even_corner_connector');
+                else if (rowCell.style == "5")
+                    $(row).find("td").eq(i).addClass('vertical_connector');
+                else if (rowCell.style == "6")
+                    $(row).find("td").eq(i).addClass('horizontal_connector');
             });
         }
 

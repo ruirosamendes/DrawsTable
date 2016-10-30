@@ -99,6 +99,7 @@ namespace DrawsTable.Models
             int currentMatchLayoutInterval = Math.Abs((currentNumberOfPlayers * TotalMatchPlayers) - _rows.Length);
             int nextMatchLayoutStartColumn = 1;
             int nextMatchLayoutStartRow = 1;
+            int nextMatchNumber = 1;
 
             for(int columnIndex = 0; columnIndex < _columns.Length; columnIndex++)
             {
@@ -115,9 +116,45 @@ namespace DrawsTable.Models
                             // Set match Two contiguous cells
                             _rows[rowIndex].Cells[columnIndex].Style = DrawCellType.FirstPlayer;
                             int contiguousRowIndex = rowIndex + 1;
-                            int contiguousRow = rowPos + 1;
                             _rows[contiguousRowIndex].Cells[columnIndex].Style = DrawCellType.SecondPlayer;
-                            nextMatchLayoutStartRow = contiguousRow + currentMatchLayoutInterval + 1;
+
+                            // If not the last match level then setup the connectors to next level match.
+                            if (nextMatchLayoutStartColumn < _columns.Length)
+                            {
+                                // Odd Match?
+                                if ((nextMatchNumber % 2) != 0)
+                                {
+                                    // Set match OddCorner connector
+                                    _rows[contiguousRowIndex].Cells[columnIndex + 1].Style = DrawCellType.OddCornerConnector;
+                                    int startVerticalIndex = contiguousRowIndex + 1;
+                                    // Set match Vertical connector down
+                                    for (int verticalIndex = startVerticalIndex; verticalIndex < (startVerticalIndex + (currentMatchLayoutInterval / 2)); verticalIndex++)
+                                    {
+                                        _rows[verticalIndex].Cells[columnIndex + 1].Style = DrawCellType.VerticalConnector;
+                                    }
+                                }
+                                else
+                                {
+                                    int startVerticalIndex = rowIndex - 1;
+                                    // Set match Vertical connector up
+                                    for (int verticalIndex = startVerticalIndex; verticalIndex > (startVerticalIndex - (currentMatchLayoutInterval / 2)); verticalIndex--)
+                                    {
+                                        _rows[verticalIndex].Cells[columnIndex + 1].Style = DrawCellType.VerticalConnector;
+                                    }
+                                    // Set match EvenCorner connector
+                                    _rows[rowIndex].Cells[columnIndex + 1].Style = DrawCellType.EvenCornerConnector;
+                                }
+                            }
+
+                            // If not the first match level then setup the horizontal connector to the previous level match.
+                            if (nextMatchLayoutStartColumn > 1)
+                            {
+                                // Set match horizontal connector (to previous match)
+                                _rows[rowIndex].Cells[columnIndex - 1].Style = DrawCellType.HorizontalConnector;
+                            }
+                            // Jump to the next match
+                            nextMatchLayoutStartRow = rowPos + 1 + currentMatchLayoutInterval + 1;
+                            nextMatchNumber++;
                         }
                     }
                     // Setup next level iteration
