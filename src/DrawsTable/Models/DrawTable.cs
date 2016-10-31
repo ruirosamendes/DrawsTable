@@ -6,20 +6,24 @@ namespace DrawsTable.Models
 {
     internal class DrawTable
     {
-        private static readonly string[] FinalRoundNames = { "Quarter - Finals", "Semi - Finals", "Final" };
+        
+        private const int COLUMN_INTERVAL = 3;
         private int _totalPlayers;
+        private int _totalRounds;
         private DrawColumn[] _columns;
         private DrawRow[] _rows;
-        private const int TotalMatchPlayers = 2;
-        private int _totalLevels;
+        private const int TOTAL_MATCH_PLAYERS = 2;
+
+        private static readonly string[] FinalRoundNames = { "Quarter - Finals", "Semi - Finals", "Final" };
+        private List<string> _roundNames;
 
 
         public DrawTable(int totalPlayers)
         {
-            this._totalPlayers = totalPlayers;
-            this._totalLevels = (int)Math.Log(
+            _totalPlayers = totalPlayers;
+            _totalRounds = (int)Math.Log(
                Convert.ToDouble(_totalPlayers),
-               Convert.ToDouble(TotalMatchPlayers));
+               Convert.ToDouble(TOTAL_MATCH_PLAYERS));            
             CreateColumns();
             CreateRows();
             SetupLayout();
@@ -27,34 +31,52 @@ namespace DrawsTable.Models
 
         private void CreateRows()
         {
-            int totalRows = (_totalPlayers * 2) - 2;
-            this._rows = new DrawRow[totalRows];
+            int totalRows = (_totalPlayers * TOTAL_MATCH_PLAYERS) - TOTAL_MATCH_PLAYERS;
+            _rows = new DrawRow[totalRows];
             for (int i = 0; i < totalRows; i++)
                 _rows[i] = new DrawRow(_columns.Length);
         }
 
-        private void CreateColumns()
-        {
-            int totalColumns = _totalPlayers - 1;
-            _columns = new DrawColumn[totalColumns];
 
+
+        private void SetupRoundsName()
+        {
+            _roundNames = new List<string>(_totalRounds);
+            int numberOfFinalRounds = FinalRoundNames.Length;
+            int numberOfEliminationRounds = _totalRounds - numberOfFinalRounds;
+            // Buld rounds names
+            for (int round = numberOfEliminationRounds; round > 0; round--)
+                _roundNames.Add("Round " + round);
+            _roundNames.AddRange(FinalRoundNames);
+        }
+
+
+        private void CreateColumnsInternal()
+        {
+            int totalColumns = (_totalRounds * COLUMN_INTERVAL) - TOTAL_MATCH_PLAYERS;
+            _columns = new DrawColumn[totalColumns];
             int nextMatchLayoutStartColumn = 1;
-            int levelIndex = 0;
+            int roundIndex = 0;
             for (int columnIndex = 0; columnIndex < totalColumns; columnIndex++)
             {
                 int columnPos = columnIndex + 1;
                 if (columnPos == nextMatchLayoutStartColumn)
                 {
-                    _columns[columnIndex] = new DrawColumn(FinalRoundNames[levelIndex], DrawColumnType.Match);
-                    nextMatchLayoutStartColumn = nextMatchLayoutStartColumn + _totalLevels;
-                    levelIndex++;
+                    _columns[columnIndex] = new DrawColumn(_roundNames[roundIndex], DrawColumnType.Match);
+                    nextMatchLayoutStartColumn = nextMatchLayoutStartColumn + COLUMN_INTERVAL;
+                    roundIndex++;
                 }
                 else
                 {
                     _columns[columnIndex] = new DrawColumn("", DrawColumnType.Connector);
                 }
             }
-                
+        }
+
+        private void CreateColumns()
+        {
+            SetupRoundsName();
+            CreateColumnsInternal();
         }
 
         public DrawColumn[] Columns
@@ -96,25 +118,23 @@ namespace DrawsTable.Models
             }
         }
 
-        public int TotalLevels
+        public int TotalRounds
         {
             get
             {
-                return _totalLevels;
+                return _totalRounds;
             }
 
             set
             {
-                _totalLevels = value;
+                _totalRounds = value;
             }
         }
 
         private void SetupLayout()
         {
-            int nextLevelIteration = 1;
-            int currentNumberOfPlayers = _totalPlayers;
-            int currentTotalOfMatches = currentNumberOfPlayers / nextLevelIteration;
-            int currentMatchLayoutInterval = Math.Abs((currentNumberOfPlayers * TotalMatchPlayers) - _rows.Length);
+            int nextRoundIteration = 1;            
+            int currentMatchLayoutInterval = ((int)Math.Pow(TOTAL_MATCH_PLAYERS, nextRoundIteration));
             int nextMatchLayoutStartColumn = 1;
             int nextMatchLayoutStartRow = 1;
             int nextMatchNumber = 1;
@@ -136,7 +156,7 @@ namespace DrawsTable.Models
                             int contiguousRowIndex = rowIndex + 1;
                             _rows[contiguousRowIndex].Cells[columnIndex].Style = DrawCellType.SecondPlayer;
 
-                            // If not the last match level then setup the connectors to next level match.
+                            // If not the last match round then setup the connectors to next round match.
                             if (nextMatchLayoutStartColumn < _columns.Length)
                             {
                                 // Odd Match?
@@ -164,7 +184,7 @@ namespace DrawsTable.Models
                                 }
                             }
 
-                            // If not the first match level then setup the horizontal connector to the previous level match.
+                            // If not the first match round then setup the horizontal connector to the previous round match.
                             if (nextMatchLayoutStartColumn > 1)
                             {
                                 // Set match horizontal connector (to previous match)
@@ -175,13 +195,11 @@ namespace DrawsTable.Models
                             nextMatchNumber++;
                         }
                     }
-                    // Setup next level iteration
-                    nextLevelIteration++;
-                    currentNumberOfPlayers = _totalPlayers / nextLevelIteration;
-                    currentTotalOfMatches = currentNumberOfPlayers / TotalMatchPlayers;
-                    currentMatchLayoutInterval = Math.Abs((currentNumberOfPlayers * TotalMatchPlayers) - _rows.Length);
-                    nextMatchLayoutStartColumn = nextMatchLayoutStartColumn + _totalLevels;
-                    nextMatchLayoutStartRow = ((int)Math.Pow(nextLevelIteration, TotalMatchPlayers)) - (nextLevelIteration - 1);    
+                    // Setup next round iteration
+                    nextRoundIteration++;                                     
+                    currentMatchLayoutInterval = ((int)Math.Pow(TOTAL_MATCH_PLAYERS, nextRoundIteration)) + currentMatchLayoutInterval;
+                    nextMatchLayoutStartColumn = nextMatchLayoutStartColumn + COLUMN_INTERVAL;
+                    nextMatchLayoutStartRow = ((int)Math.Pow(nextRoundIteration, TOTAL_MATCH_PLAYERS)) - (nextRoundIteration - 1);    
                 }
             }
         }

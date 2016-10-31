@@ -16,11 +16,11 @@ namespace DrawsTable.Tests
             Assert.Equal(8, draw.TotalPlayers);
             Assert.Equal(7, draw.Columns.Length);
             Assert.Equal(14, draw.Rows.Length);
-            Assert.Equal(3, draw.TotalLevels);
+            Assert.Equal(3, draw.TotalRounds);
         }
 
         [Fact]
-        private void ContructorSetupLayoutMustSetLevel1MatchsForATotalOf8Players()
+        private void ContructorSetupLayoutMustSetRound1MatchsForATotalOf8Players()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(8);
@@ -42,7 +42,7 @@ namespace DrawsTable.Tests
         }
 
         [Fact]
-        private void ContructorSetupLayoutMustSetLevel2MatchsForATotalOf8Players()
+        private void ContructorSetupLayoutMustSetRound2MatchsForATotalOf8Players()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(8);
@@ -65,7 +65,7 @@ namespace DrawsTable.Tests
 
 
         [Fact]
-        private void ContructorSetupLayoutMustSetLevel3MatchsForATotalOf8Players()
+        private void ContructorSetupLayoutMustSetRound3MatchsForATotalOf8Players()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(8);
@@ -89,7 +89,7 @@ namespace DrawsTable.Tests
 
 
         [Fact]
-        private void ContructorSetupLayoutMustSetConnectionsBetweenLevel1AndLevel2ForATotalOf8Players()
+        private void ContructorSetupLayoutMustSetConnectionsBetweenRound1AndRound2ForATotalOf8Players()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(8);
@@ -120,7 +120,7 @@ namespace DrawsTable.Tests
         }
 
         [Fact]
-        private void ContructorSetupLayoutMustSetConnectionsBetweenLevel2AndLevel3ForATotalOf8Players()
+        private void ContructorSetupLayoutMustSetConnectionsBetweenRound2AndRound3ForATotalOf8Players()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(8);
@@ -165,8 +165,48 @@ namespace DrawsTable.Tests
             Assert.Equal(DrawColumnType.Connector, draw.Columns[4].Type);
             Assert.Equal(DrawColumnType.Connector, draw.Columns[5].Type);
             Assert.Equal(DrawColumnType.Match, draw.Columns[6].Type);
+        }
+
+        [Fact]
+        private void ContructorSetupColumnsPropertiesFor16PlayersMustNotCrash()
+        {
+            // Create new DataTable.
+            DrawTable draw = new DrawTable(16);
+
+            Assert.Equal(16, draw.TotalPlayers);
+            Assert.Equal(10, draw.Columns.Length);
+            Assert.Equal(30, draw.Rows.Length);
+            Assert.Equal(4, draw.TotalRounds);           
+        }
 
 
+        [Fact]
+        private void ContructorSetupColumnsPropertiesFor16PlayersMustSetupRound1Column()
+        {
+            // Create new DataTable.
+            DrawTable draw = new DrawTable(16);
+            
+            Assert.Equal("Round 1", draw.Columns[0].Name);
+            Assert.Equal("", draw.Columns[1].Name);
+            Assert.Equal("", draw.Columns[2].Name);
+            Assert.Equal("Quarter - Finals", draw.Columns[3].Name);
+            Assert.Equal("", draw.Columns[4].Name);
+            Assert.Equal("", draw.Columns[5].Name);
+            Assert.Equal("Semi - Finals", draw.Columns[6].Name);
+            Assert.Equal("", draw.Columns[7].Name);
+            Assert.Equal("", draw.Columns[8].Name);
+            Assert.Equal("Final", draw.Columns[9].Name);
+
+            Assert.Equal(DrawColumnType.Match, draw.Columns[0].Type);
+            Assert.Equal(DrawColumnType.Connector, draw.Columns[1].Type);
+            Assert.Equal(DrawColumnType.Connector, draw.Columns[2].Type);
+            Assert.Equal(DrawColumnType.Match, draw.Columns[3].Type);
+            Assert.Equal(DrawColumnType.Connector, draw.Columns[4].Type);
+            Assert.Equal(DrawColumnType.Connector, draw.Columns[5].Type);
+            Assert.Equal(DrawColumnType.Match, draw.Columns[6].Type);
+            Assert.Equal(DrawColumnType.Connector, draw.Columns[7].Type);
+            Assert.Equal(DrawColumnType.Connector, draw.Columns[8].Type);
+            Assert.Equal(DrawColumnType.Match, draw.Columns[9].Type);
 
         }
     }

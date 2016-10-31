@@ -15,7 +15,7 @@ namespace DrawsTable.Controllers
 
         public ActionResult Get()
         {
-            DrawTable draw = new DrawTable(8);
+            DrawTable draw = new DrawTable(16);
             return Json(draw);
         }
 
