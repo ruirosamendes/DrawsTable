@@ -19,15 +19,29 @@ var draw = {
 
     Build: function (ajaxFunction)
     {
-        var _columnsProps = [];
+        var _columnProps = [];
+        var _columnDefs = [];
+        var _columnTargets = [];
 
         function CreateTableHeader (columns){
-            var tableHeaders;
+            var tableHeaders= '';
 
             $.each(columns, function (i, val) {
-                tableHeaders += "<th>" + val.name + "</th>";
-                _columnsProps.push({ data : "cells." + i +  ".style" })
+                tableHeaders += '<th>' + val.name + '</th>';
+                //tableHeaders += '<th></th>';
+                var columnWidth;
+                if(val.type == "1")
+                    columnWidth = "200px";
+                else
+                    columnWidth = "50px";
+                _columnProps.push({
+                    data: "cells." + i + ".style",
+                    width: columnWidth
+                });
             });
+            //_columnDefs.push({
+            //    width: "200px", "targets": [0, 3, 6],
+            //});
             $("#drawTableRowHeader").append(tableHeaders);
         }
 
@@ -56,7 +70,9 @@ var draw = {
                 ordering: false,
                 searching: false,
                 info: false,
-                columns: _columnsProps,
+                autoWidth: false,
+                //columnDefs: _columnDefs,
+                columns: _columnProps,
                 rowCallback: function( row, data, index ) {
                         SetRowCellStyle(row, data, index)
                     }

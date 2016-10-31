@@ -142,6 +142,31 @@ namespace DrawsTable.Tests
             Assert.Equal(DrawCellType.None, draw.Rows[11].Cells[4].Style);
             Assert.Equal(DrawCellType.None, draw.Rows[12].Cells[4].Style);
             Assert.Equal(DrawCellType.None, draw.Rows[13].Cells[4].Style);
+        }
+
+        [Fact]
+        private void ContructorSetupColumnsProperties()
+        {
+            // Create new DataTable.
+            DrawTable draw = new DrawTable(8);
+
+            Assert.Equal("Quarter - Finals",  draw.Columns[0].Name);
+            Assert.Equal("", draw.Columns[1].Name);
+            Assert.Equal("", draw.Columns[2].Name);
+            Assert.Equal("Semi - Finals", draw.Columns[3].Name);
+            Assert.Equal("", draw.Columns[4].Name);
+            Assert.Equal("", draw.Columns[5].Name);
+            Assert.Equal("Final", draw.Columns[6].Name);
+
+            Assert.Equal(DrawColumnType.Match, draw.Columns[0].Type);
+            Assert.Equal(DrawColumnType.Connector, draw.Columns[1].Type);
+            Assert.Equal(DrawColumnType.Connector, draw.Columns[2].Type);
+            Assert.Equal(DrawColumnType.Match, draw.Columns[3].Type);
+            Assert.Equal(DrawColumnType.Connector, draw.Columns[4].Type);
+            Assert.Equal(DrawColumnType.Connector, draw.Columns[5].Type);
+            Assert.Equal(DrawColumnType.Match, draw.Columns[6].Type);
+
+
 
         }
     }

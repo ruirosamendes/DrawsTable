@@ -6,11 +6,13 @@ namespace DrawsTable.Models
 {
     internal class DrawTable
     {
+        private static readonly string[] FinalRoundNames = { "Quarter - Finals", "Semi - Finals", "Final" };
         private int _totalPlayers;
         private DrawColumn[] _columns;
         private DrawRow[] _rows;
         private const int TotalMatchPlayers = 2;
         private int _totalLevels;
+
 
         public DrawTable(int totalPlayers)
         {
@@ -34,9 +36,25 @@ namespace DrawsTable.Models
         private void CreateColumns()
         {
             int totalColumns = _totalPlayers - 1;
-            this._columns = new DrawColumn[totalColumns];
-            for (int i = 0; i < totalColumns; i++)
-                _columns[i] = new DrawColumn("Column" + i);
+            _columns = new DrawColumn[totalColumns];
+
+            int nextMatchLayoutStartColumn = 1;
+            int levelIndex = 0;
+            for (int columnIndex = 0; columnIndex < totalColumns; columnIndex++)
+            {
+                int columnPos = columnIndex + 1;
+                if (columnPos == nextMatchLayoutStartColumn)
+                {
+                    _columns[columnIndex] = new DrawColumn(FinalRoundNames[levelIndex], DrawColumnType.Match);
+                    nextMatchLayoutStartColumn = nextMatchLayoutStartColumn + _totalLevels;
+                    levelIndex++;
+                }
+                else
+                {
+                    _columns[columnIndex] = new DrawColumn("", DrawColumnType.Connector);
+                }
+            }
+                
         }
 
         public DrawColumn[] Columns

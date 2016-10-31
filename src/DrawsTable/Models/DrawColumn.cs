@@ -1,12 +1,16 @@
-﻿namespace DrawsTable.Models
+﻿using System.Collections.Generic;
+
+namespace DrawsTable.Models
 {
     internal class DrawColumn
     {
         private string _name;
+        private DrawColumnType _type;
 
-        public DrawColumn(string name)
+        public DrawColumn(string name, DrawColumnType type)
         {
-            this._name = name;
+            _name = name;
+            _type = type;
         }
 
         public string Name
@@ -19,6 +23,19 @@
             set
             {
                 _name = value;
+            }
+        }
+
+        public DrawColumnType Type
+        {
+            get
+            {
+                return _type;
+            }
+
+            set
+            {
+                _type = value;
             }
         }
     }

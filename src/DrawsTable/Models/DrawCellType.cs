@@ -1,4 +1,5 @@
-﻿namespace DrawsTable.Models
+﻿
+namespace DrawsTable.Models
 {
     internal enum DrawCellType : int
     {
