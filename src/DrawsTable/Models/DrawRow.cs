@@ -3,27 +3,32 @@ namespace DrawsTable.Models
 {
     internal class DrawRow
     {
-        private DrawCell[] cells;
+        private DrawCell[] _cells;
+
+        private void EmptyRow(int totalCells)
+        {
+            _cells = new DrawCell[totalCells];
+            for (int i = 0; i < totalCells; i++)
+            {
+                _cells[i] = new DrawCell(DrawCellType.None);
+            }
+        }
 
         public DrawRow(int totalCells)
         {
-            cells = new DrawCell[totalCells];
-            for (int i = 0; i < totalCells; i++)
-            {
-                cells[i] = new DrawCell(DrawCellType.None);
-            }
-        }
+            EmptyRow(totalCells);
+        }       
 
         public DrawCell[] Cells
         {
             get
             {
-                return cells;
+                return _cells;
             }
 
             set
             {
-                cells = value;
+                _cells = value;
             }
         }
     }

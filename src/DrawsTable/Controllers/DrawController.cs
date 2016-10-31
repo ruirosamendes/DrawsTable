@@ -6,12 +6,6 @@ namespace DrawsTable.Controllers
    
     public class DrawController : Controller
     {
-        public class Data
-        {
-            public string name;
-            public string position;
-        }
-
 
         public ActionResult Get()
         {

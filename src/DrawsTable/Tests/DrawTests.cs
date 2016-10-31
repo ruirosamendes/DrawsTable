@@ -309,6 +309,11 @@ namespace DrawsTable.Tests
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[14].Cells[9].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[15].Cells[9].Style);
         }
+
+
+
+
+
     }
 
 }
