@@ -1,5 +1,6 @@
 ﻿
 using DrawsTable.Models;
+using System.IO;
 using Xunit;
 
 namespace DrawsTable.Tests
@@ -8,7 +9,7 @@ namespace DrawsTable.Tests
     {
 
         [Fact]
-        private void ContructorCreateDataTable()
+        private void CreateDataTable()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(8);
@@ -20,7 +21,7 @@ namespace DrawsTable.Tests
         }
 
         [Fact]
-        private void ContructorSetupLayoutMustSetRound1MatchsForATotalOf8Players()
+        private void SetupLayoutMustSetRound1MatchsForATotalOf8Players()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(8);
@@ -42,7 +43,7 @@ namespace DrawsTable.Tests
         }
 
         [Fact]
-        private void ContructorSetupLayoutMustSetRound2MatchsForATotalOf8Players()
+        private void SetupLayoutMustSetRound2MatchsForATotalOf8Players()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(8);
@@ -65,7 +66,7 @@ namespace DrawsTable.Tests
 
 
         [Fact]
-        private void ContructorSetupLayoutMustSetRound3MatchsForATotalOf8Players()
+        private void SetupLayoutMustSetRound3MatchsForATotalOf8Players()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(8);
@@ -89,7 +90,7 @@ namespace DrawsTable.Tests
 
 
         [Fact]
-        private void ContructorSetupLayoutMustSetConnectionsBetweenRound1AndRound2ForATotalOf8Players()
+        private void SetupLayoutMustSetConnectionsBetweenRound1AndRound2ForATotalOf8Players()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(8);
@@ -97,9 +98,7 @@ namespace DrawsTable.Tests
             Assert.Equal(DrawCellType.None, draw.Rows[0].Cells[1].Style);
             Assert.Equal(DrawCellType.OddCornerConnector, draw.Rows[1].Cells[1].Style);
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[2].Cells[1].Style);
-
             Assert.Equal(DrawCellType.HorizontalConnector, draw.Rows[2].Cells[2].Style);
-
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[3].Cells[1].Style);
             Assert.Equal(DrawCellType.EvenCornerConnector, draw.Rows[4].Cells[1].Style);
             Assert.Equal(DrawCellType.None, draw.Rows[5].Cells[1].Style);
@@ -108,19 +107,14 @@ namespace DrawsTable.Tests
             Assert.Equal(DrawCellType.None, draw.Rows[8].Cells[1].Style);
             Assert.Equal(DrawCellType.OddCornerConnector, draw.Rows[9].Cells[1].Style);
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[10].Cells[1].Style);
-
             Assert.Equal(DrawCellType.HorizontalConnector, draw.Rows[10].Cells[2].Style);
-
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[11].Cells[1].Style);
             Assert.Equal(DrawCellType.EvenCornerConnector, draw.Rows[12].Cells[1].Style);
             Assert.Equal(DrawCellType.None, draw.Rows[13].Cells[1].Style);
-
-            
-
         }
 
         [Fact]
-        private void ContructorSetupLayoutMustSetConnectionsBetweenRound2AndRound3ForATotalOf8Players()
+        private void SetupLayoutMustSetConnectionsBetweenRound2AndRound3ForATotalOf8Players()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(8);
@@ -132,9 +126,7 @@ namespace DrawsTable.Tests
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[4].Cells[4].Style);
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[5].Cells[4].Style);
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[6].Cells[4].Style);
-
             Assert.Equal(DrawCellType.HorizontalConnector, draw.Rows[6].Cells[5].Style);
-
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[7].Cells[4].Style);
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[8].Cells[4].Style);
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[9].Cells[4].Style);
@@ -145,7 +137,7 @@ namespace DrawsTable.Tests
         }
 
         [Fact]
-        private void ContructorSetupColumnsProperties()
+        private void SetupColumnsProperties()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(8);
@@ -168,7 +160,7 @@ namespace DrawsTable.Tests
         }
 
         [Fact]
-        private void ContructorSetupColumnsPropertiesFor16PlayersMustNotCrash()
+        private void SetupColumnsPropertiesFor16PlayersMustNotCrash()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(16);
@@ -181,7 +173,7 @@ namespace DrawsTable.Tests
 
 
         [Fact]
-        private void ContructorSetupColumnsPropertiesFor16PlayersMustSetupRound1Column()
+        private void SetupColumnsPropertiesFor16PlayersMustSetupRound1Column()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(16);
@@ -211,7 +203,7 @@ namespace DrawsTable.Tests
         }
    
         [Fact]
-        private void ContructorSetupLayoutFor16Players()
+        private void SetupLayoutFor16Players()
         {
             // Create new DataTable.
             DrawTable draw = new DrawTable(16);
@@ -310,8 +302,16 @@ namespace DrawsTable.Tests
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[15].Cells[9].Style);
         }
 
+        [Fact]
+        public void LoadPlayersNamesAndTeamsFromTxtFile()
+        {
+            DrawTable draw = new DrawTable(16);
+            string path = Directory.GetCurrentDirectory();
+            string filePath = path + @"\..\..\PlayersAndTeams.txt";
+            draw.LoadPlayersFromTxt(filePath);
 
-
+            Assert.Equal(37, draw.TotalLoadedPlayers);            
+        }
 
 
     }

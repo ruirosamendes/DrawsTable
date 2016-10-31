@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace DrawsTable.Models
 {
@@ -16,7 +18,7 @@ namespace DrawsTable.Models
 
         private static readonly string[] FinalRoundNames = { "Quarter - Finals", "Semi - Finals", "Final" };
         private List<string> _roundNames;
-
+        private int _totalLoadedPlayers;
 
         public DrawTable(int totalPlayers)
         {
@@ -202,6 +204,26 @@ namespace DrawsTable.Models
                     nextMatchLayoutStartRow = currentMatchLayoutInterval / TOTAL_MATCH_PLAYERS;
                 }
             }
+        }
+
+
+        public int TotalLoadedPlayers
+        {
+            get
+            {
+                return _totalLoadedPlayers;
+            }
+        }
+
+        internal void LoadPlayersFromTxt(string sourceFilePath)
+        {
+            string[] lines = File.ReadAllLines(sourceFilePath);
+
+            string[][] players = lines.Select(line => line.Split('\t')).ToArray();
+
+            _totalLoadedPlayers = players.Count();
+
+
         }
     }
 }
