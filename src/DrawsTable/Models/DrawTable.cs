@@ -199,7 +199,7 @@ namespace DrawsTable.Models
                     nextRoundIteration++;                                     
                     currentMatchLayoutInterval = ((int)Math.Pow(TOTAL_MATCH_PLAYERS, nextRoundIteration)) + currentMatchLayoutInterval;
                     nextMatchLayoutStartColumn = nextMatchLayoutStartColumn + COLUMN_INTERVAL;
-                    nextMatchLayoutStartRow = ((int)Math.Pow(nextRoundIteration, TOTAL_MATCH_PLAYERS)) - (nextRoundIteration - 1);    
+                    nextMatchLayoutStartRow = currentMatchLayoutInterval / TOTAL_MATCH_PLAYERS;
                 }
             }
         }
