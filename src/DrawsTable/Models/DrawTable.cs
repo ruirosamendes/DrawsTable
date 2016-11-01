@@ -10,15 +10,18 @@ namespace DrawsTable.Models
     {
         
         private const int COLUMN_INTERVAL = 3;
-        private int _totalPlayers;
-        private int _totalRounds;
+        private readonly int _totalPlayers;
+        private readonly int _totalRounds;
         private DrawColumn[] _columns;
         private DrawRow[] _rows;
         private const int TOTAL_MATCH_PLAYERS = 2;
 
         private static readonly string[] FinalRoundNames = { "Quarter - Finals", "Semi - Finals", "Final" };
         private List<string> _roundNames;
-        private int _totalLoadedPlayers;
+
+
+        //private int _totalLoadedPlayers;
+
 
         public DrawTable(int totalPlayers)
         {
@@ -113,11 +116,6 @@ namespace DrawsTable.Models
             {
                 return _totalPlayers;
             }
-
-            set
-            {
-                _totalPlayers = value;
-            }
         }
 
         public int TotalRounds
@@ -125,11 +123,6 @@ namespace DrawsTable.Models
             get
             {
                 return _totalRounds;
-            }
-
-            set
-            {
-                _totalRounds = value;
             }
         }
 
@@ -204,26 +197,6 @@ namespace DrawsTable.Models
                     nextMatchLayoutStartRow = currentMatchLayoutInterval / TOTAL_MATCH_PLAYERS;
                 }
             }
-        }
-
-
-        public int TotalLoadedPlayers
-        {
-            get
-            {
-                return _totalLoadedPlayers;
-            }
-        }
-
-        internal void LoadPlayersFromTxt(string sourceFilePath)
-        {
-            string[] lines = File.ReadAllLines(sourceFilePath);
-
-            string[][] players = lines.Select(line => line.Split('\t')).ToArray();
-
-            _totalLoadedPlayers = players.Count();
-
-
         }
     }
 }

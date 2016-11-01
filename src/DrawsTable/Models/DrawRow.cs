@@ -25,11 +25,6 @@ namespace DrawsTable.Models
             {
                 return _cells;
             }
-
-            set
-            {
-                _cells = value;
-            }
         }
     }
 }

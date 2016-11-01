@@ -10331,6 +10331,7 @@
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 1.0.0",
       "Microsoft.NETCore.App >= 1.0.0",
       "Microsoft.VisualStudio.Web.BrowserLink.Loader >= 14.0.0",
+      "System.Collections >= 4.0.11",
       "dotnet-test-xunit >= 1.0.0-rc3-000000-00",
       "xunit >= 2.1.0",
       "xunit.runner.console >= 2.1.0"

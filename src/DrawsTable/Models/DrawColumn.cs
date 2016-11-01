@@ -4,8 +4,8 @@ namespace DrawsTable.Models
 {
     internal class DrawColumn
     {
-        private string _name;
-        private DrawColumnType _type;
+        private readonly string _name;
+        private readonly DrawColumnType _type;
 
         public DrawColumn(string name, DrawColumnType type)
         {
@@ -19,11 +19,6 @@ namespace DrawsTable.Models
             {
                 return _name;
             }
-
-            set
-            {
-                _name = value;
-            }
         }
 
         public DrawColumnType Type
@@ -31,11 +26,6 @@ namespace DrawsTable.Models
             get
             {
                 return _type;
-            }
-
-            set
-            {
-                _type = value;
             }
         }
     }

@@ -302,18 +302,6 @@ namespace DrawsTable.Tests
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[15].Cells[9].Style);
         }
 
-        [Fact]
-        public void LoadPlayersNamesAndTeamsFromTxtFile()
-        {
-            DrawTable draw = new DrawTable(16);
-            string path = Directory.GetCurrentDirectory();
-            string filePath = path + @"\..\..\PlayersAndTeams.txt";
-            draw.LoadPlayersFromTxt(filePath);
-
-            Assert.Equal(37, draw.TotalLoadedPlayers);            
-        }
-
-
     }
 
 }
