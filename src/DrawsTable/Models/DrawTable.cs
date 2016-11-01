@@ -19,10 +19,6 @@ namespace DrawsTable.Models
         private static readonly string[] FinalRoundNames = { "Quarter - Finals", "Semi - Finals", "Final" };
         private List<string> _roundNames;
 
-
-        //private int _totalLoadedPlayers;
-
-
         public DrawTable(int totalPlayers)
         {
             _totalPlayers = totalPlayers;
@@ -42,8 +38,6 @@ namespace DrawsTable.Models
                 _rows[i] = new DrawRow(_columns.Length);
         }
 
-
-
         private void SetupRoundsName()
         {
             _roundNames = new List<string>(_totalRounds);
@@ -54,7 +48,6 @@ namespace DrawsTable.Models
                 _roundNames.Add("Round " + round);
             _roundNames.AddRange(FinalRoundNames);
         }
-
 
         private void CreateColumnsInternal()
         {
@@ -148,9 +141,10 @@ namespace DrawsTable.Models
                         {
                             // Set match Two contiguous cells
                             _rows[rowIndex].Cells[columnIndex].Style = DrawCellType.FirstPlayer;
+                            _rows[rowIndex].Cells[columnIndex].MatchNumber = nextMatchNumber;
                             int contiguousRowIndex = rowIndex + 1;
                             _rows[contiguousRowIndex].Cells[columnIndex].Style = DrawCellType.SecondPlayer;
-
+                            _rows[contiguousRowIndex].Cells[columnIndex].MatchNumber = nextMatchNumber;
                             // If not the last match round then setup the connectors to next round match.
                             if (nextMatchLayoutStartColumn < _columns.Length)
                             {

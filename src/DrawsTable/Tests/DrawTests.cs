@@ -211,20 +211,36 @@ namespace DrawsTable.Tests
             // Round 1
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[0].Cells[0].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[1].Cells[0].Style);
+            Assert.Equal(1, draw.Rows[0].Cells[0].MatchNumber);
+            Assert.Equal(1, draw.Rows[1].Cells[0].MatchNumber);
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[4].Cells[0].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[5].Cells[0].Style);
+            Assert.Equal(2, draw.Rows[4].Cells[0].MatchNumber);
+            Assert.Equal(2, draw.Rows[5].Cells[0].MatchNumber);
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[8].Cells[0].Style);
-            Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[9].Cells[0].Style);        
+            Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[9].Cells[0].Style);
+            Assert.Equal(3, draw.Rows[8].Cells[0].MatchNumber);
+            Assert.Equal(3, draw.Rows[9].Cells[0].MatchNumber);
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[12].Cells[0].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[13].Cells[0].Style);
+            Assert.Equal(4, draw.Rows[12].Cells[0].MatchNumber);
+            Assert.Equal(4, draw.Rows[13].Cells[0].MatchNumber);
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[16].Cells[0].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[17].Cells[0].Style);
+            Assert.Equal(5, draw.Rows[16].Cells[0].MatchNumber);
+            Assert.Equal(5, draw.Rows[17].Cells[0].MatchNumber);
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[20].Cells[0].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[21].Cells[0].Style);
+            Assert.Equal(6, draw.Rows[20].Cells[0].MatchNumber);
+            Assert.Equal(6, draw.Rows[21].Cells[0].MatchNumber);
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[24].Cells[0].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[25].Cells[0].Style);
+            Assert.Equal(7, draw.Rows[24].Cells[0].MatchNumber);
+            Assert.Equal(7, draw.Rows[25].Cells[0].MatchNumber);
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[28].Cells[0].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[29].Cells[0].Style);
+            Assert.Equal(8, draw.Rows[28].Cells[0].MatchNumber);
+            Assert.Equal(8, draw.Rows[29].Cells[0].MatchNumber);
             // Connections Round 1 -> Quarter Finals
             Assert.Equal(DrawCellType.OddCornerConnector, draw.Rows[1].Cells[1].Style);
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[2].Cells[1].Style);
@@ -249,12 +265,20 @@ namespace DrawsTable.Tests
             // Querter - Finals
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[2].Cells[3].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[3].Cells[3].Style);
+            Assert.Equal(9, draw.Rows[2].Cells[3].MatchNumber);
+            Assert.Equal(9, draw.Rows[3].Cells[3].MatchNumber);
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[10].Cells[3].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[11].Cells[3].Style);
+            Assert.Equal(10, draw.Rows[10].Cells[3].MatchNumber);
+            Assert.Equal(10, draw.Rows[11].Cells[3].MatchNumber);
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[18].Cells[3].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[19].Cells[3].Style);
+            Assert.Equal(11, draw.Rows[18].Cells[3].MatchNumber);
+            Assert.Equal(11, draw.Rows[19].Cells[3].MatchNumber);
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[26].Cells[3].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[27].Cells[3].Style);
+            Assert.Equal(12, draw.Rows[26].Cells[3].MatchNumber);
+            Assert.Equal(12, draw.Rows[27].Cells[3].MatchNumber);
             // Connections Quarter Finals - Semi Finals
             Assert.Equal(DrawCellType.OddCornerConnector, draw.Rows[3].Cells[4].Style);
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[4].Cells[4].Style);
@@ -277,8 +301,12 @@ namespace DrawsTable.Tests
             // Semi - Finals
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[6].Cells[6].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[7].Cells[6].Style);
+            Assert.Equal(13, draw.Rows[6].Cells[6].MatchNumber);
+            Assert.Equal(13, draw.Rows[7].Cells[6].MatchNumber);
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[22].Cells[6].Style);
-            Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[23].Cells[6].Style);            
+            Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[23].Cells[6].Style);
+            Assert.Equal(14, draw.Rows[22].Cells[6].MatchNumber);
+            Assert.Equal(14, draw.Rows[23].Cells[06].MatchNumber);
             // Connections Semi Finals -> Final
             Assert.Equal(DrawCellType.OddCornerConnector, draw.Rows[7].Cells[7].Style);
             Assert.Equal(DrawCellType.VerticalConnector, draw.Rows[8].Cells[7].Style);
@@ -300,6 +328,8 @@ namespace DrawsTable.Tests
             // Final
             Assert.Equal(DrawCellType.FirstPlayer, draw.Rows[14].Cells[9].Style);
             Assert.Equal(DrawCellType.SecondPlayer, draw.Rows[15].Cells[9].Style);
+            Assert.Equal(15, draw.Rows[14].Cells[9].MatchNumber);
+            Assert.Equal(15, draw.Rows[15].Cells[9].MatchNumber);
         }
 
     }

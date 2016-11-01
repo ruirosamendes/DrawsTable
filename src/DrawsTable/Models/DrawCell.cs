@@ -5,6 +5,7 @@ namespace DrawsTable.Models
     internal class DrawCell
     {
         private DrawCellType _style;
+        private int? matchNumber;
 
         public DrawCell(DrawCellType style)
         {
@@ -24,5 +25,17 @@ namespace DrawsTable.Models
             }
         }
 
+        public int? MatchNumber
+        {
+            get
+            {
+                return matchNumber;
+            }
+
+            set
+            {
+                matchNumber = value;
+            }
+        }
     }
 }
