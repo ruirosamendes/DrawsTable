@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace DrawsTable.Models
 {
@@ -74,7 +75,7 @@ namespace DrawsTable.Models
 
         internal void LoadPlayersFromTxt(string sourceFilePath)
         {
-            string[] lines = File.ReadAllLines(sourceFilePath);
+            string[] lines = File.ReadAllLines(sourceFilePath, Encoding.UTF8);
             _players = new Player[lines.Length];
             Player player;
             int playerIndex = 0;
@@ -142,8 +143,7 @@ namespace DrawsTable.Models
                 }
                 // Add match on Draw position.
                 drawMatchs.Add(match.Number.Value, match);
-
-
+                // Change indexes.
                 incrementChangeIndex++;
                 playerIndexForward++;
                 playerIndexBackward--;

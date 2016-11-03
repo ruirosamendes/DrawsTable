@@ -15,9 +15,9 @@ namespace DrawsTable.Models
         private DrawColumn[] _columns;
         private DrawRow[] _rows;
         private const int TOTAL_MATCH_PLAYERS = 2;
-
         private static readonly string[] FinalRoundNames = { "Quarter - Finals", "Semi - Finals", "Final" };
         private List<string> _roundNames;
+        private Match[] matches;
 
         public DrawTable(int totalPlayers)
         {
@@ -116,6 +116,18 @@ namespace DrawsTable.Models
             get
             {
                 return _totalRounds;
+            }
+        }
+
+        public Match[] Matches
+        {
+            get
+            {
+                return matches;
+            }
+            set
+            {
+                matches = value;
             }
         }
 

@@ -1,12 +1,16 @@
 ﻿@{
-    ViewData["Title"] = "Draw Page";
+    ViewData["Title"] = "Tournament Page";
 }
 
-<h1>Draw</h1>
+<h1>Tournament</h1>
+<h2>Players</h2>
 <div>
-    <table id="drawTable" class="compact" cellspacing="0" data-page-length='25'>
+    <table id="playersTable" class="compact" cellspacing="0" data-page-length='25'>
         <thead>
-            <tr id="drawTableRowHeader">
+            <tr id="playersTableRowHeader">
+                <td width="10%">Rank</td>
+                <td width="40%">Name</td>
+                <td width="40%">Team</td>
             </tr>
         </thead>
     </table>
@@ -14,19 +18,18 @@
 
 @section Styles {
     <environment names="Development">
-         <link rel="stylesheet" href="~/css/draw.css" />
+         <link rel="stylesheet" href="~/css/tournament.css" />
     </environment>
     <environment names="Staging,Production">
-        <link rel="stylesheet" href="~/css/draw.min.css" />
+        <link rel="stylesheet" href="~/css/tournament.min.css" />
     </environment>
 }
+
 @section Scripts {
     <environment names="Development">
-        <script src="~/js/draw.js"></script>
         <script src="~/js/tournament.js"></script>
     </environment>
     <environment names="Staging,Production">
-        <script src="~/js/draw.min.js"></script>
         <script src="~/js/tournament.min.js"></script>
     </environment>
 }

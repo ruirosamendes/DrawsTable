@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
-    var ajaxFunction = draw.GetData();
-    draw.Build(ajaxFunction);
-   
+    var drawDataFunction = draw.GetData();
+    draw.Build(drawDataFunction);
 });
 
 var draw = {
@@ -17,11 +16,10 @@ var draw = {
         });
     },
 
-    Build: function (ajaxFunction)
+    Build: function (drawDataFunction)
     {
         var _columnProps = [];
-        var _columnDefs = [];
-        var _columnTargets = [];
+        var _matches;
 
         function CreateTableHeader (columns){
             var tableHeaders= '';
@@ -34,32 +32,57 @@ var draw = {
                 else
                     columnWidth = "50px";
                 _columnProps.push({
-                    data: "cells." + i + ".style",
+                    data: "cells." + i + ".matchNumber",
                     width: columnWidth
                 });
             });
             $("#drawTableRowHeader").append(tableHeaders);
         }
 
-        function SetRowCellStyle(row, data, index) {
+        function SetRowCellValueAndStyle(row, data, index) {
             $.each(data.cells, function (i, val) {
                 var rowCell = val;
+                var td = $(row).find("td").eq(i);
+                // Set cell Match Player
+                if (rowCell.matchNumber != null)
+                {
+                    var match = _matches[rowCell.matchNumber - 1];
+                    var opponentName; 
+                    if (match != null)
+                    {
+                        switch (rowCell.style) {
+                            case 1:
+                                opponentName = match.opponent1.name
+                                break;
+                            case 2:
+                                opponentName = match.opponent2.name
+                                break;
+                            default:
+                                opponentName = "";
+                        }
+                    }
+                    td.text(opponentName);
+                }
+                // Set cell style
                 if (rowCell.style == "1")
-                    $(row).find("td").eq(i).addClass('first_player');
+                    td.addClass('first_player');
                 else if (rowCell.style == "2")
-                    $(row).find("td").eq(i).addClass('second_player');
+                    td.addClass('second_player');
                 else if (rowCell.style == "3")
-                    $(row).find("td").eq(i).addClass('odd_corner_connector');
+                    td.addClass('odd_corner_connector');
                 else if (rowCell.style == "4")
-                    $(row).find("td").eq(i).addClass('even_corner_connector');
+                    td.addClass('even_corner_connector');
                 else if (rowCell.style == "5")
-                    $(row).find("td").eq(i).addClass('vertical_connector');
+                    td.addClass('vertical_connector');
                 else if (rowCell.style == "6")
-                    $(row).find("td").eq(i).addClass('horizontal_connector');
+                    td.addClass('horizontal_connector');
+
+
             });
         }
 
-        function LoadTable(rows) {
+        function LoadTable(rows, matches) {
+            _matches = matches;
             $('#drawTable').DataTable({
                 data: rows,
                 paging: false,
@@ -68,21 +91,26 @@ var draw = {
                 info: false,
                 autoWidth: false,
                 columns: _columnProps,
-                rowCallback: function( row, data, index ) {
-                        SetRowCellStyle(row, data, index)
+                rowCallback: function (row, data, index) {
+                    SetRowCellValueAndStyle(row, data, index);
                     }
             });
         }
 
-        ajaxFunction.done(function (data) {
+
+        drawDataFunction.done(function (data) {
             CreateTableHeader(data.columns);
-            LoadTable(data.rows);
+            LoadTable(data.rows, data.matches);
         });
 
-        ajaxFunction.fail(function (error) {
+        drawDataFunction.fail(function (error) {
             //do stuff when error
             alert(error);
         });
+
+
+
+        
     }
 
 

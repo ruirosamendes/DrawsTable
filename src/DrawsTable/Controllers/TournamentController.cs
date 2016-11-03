@@ -5,32 +5,35 @@ using System;
 
 namespace DrawsTable.Controllers
 {
-   
-    public class DrawController : Controller
+    public class TournamentController : Controller
     {
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public DrawController(IHostingEnvironment hostingEnvironment)
+        public TournamentController(IHostingEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
         }
 
-        public ActionResult Get()
+        public ActionResult GetPlayers()
         {
-            DrawTable draw = new DrawTable(16);
-
             Tournament tournament = new Tournament("Torneio de Mafra", DateTime.Today);
+
             string webRootPath = _hostingEnvironment.WebRootPath;
             string filePath = webRootPath + "\\data\\PlayersAndTeams.txt";
             tournament.LoadPlayersFromTxt(filePath);
-            tournament.MakeDraw(DrawMap.Sixteen, 4, 3);
-
-
-            draw.Matches = tournament.Matches;
-
-            return Json(draw);
+            return Json(tournament.Players);
         }
 
+        public ActionResult GetMatches()
+        {
+            Tournament tournament = new Tournament("Torneio de Mafra", DateTime.Today);
+
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            string filePath = webRootPath + "\\data\\PlayersAndTeams.txt";
+            tournament.LoadPlayersFromTxt(filePath);
+            tournament.MakeDraw(DrawMap.Sixteen, 16, 3);
+            return Json(tournament.Matches);
+        }
 
         public IActionResult Index()
         {

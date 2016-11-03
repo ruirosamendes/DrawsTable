@@ -30,19 +30,20 @@ namespace DrawsTable.Models
             }
         }
 
-        public int Rank
-        {
-            get
-            {
-                return _rank;
-            }
-        }
 
         public string Team
         {
             get
             {
                 return _team;
+            }
+        }
+
+        public int Rank
+        {
+            get
+            {
+                return _rank;
             }
         }
     }

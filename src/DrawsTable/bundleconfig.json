@@ -22,5 +22,17 @@
     "inputFiles": [
       "wwwroot/js/draw.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/tournament.min.css",
+    "inputFiles": [
+      "wwwroot/css/tournament.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/tournament.min.js",
+    "inputFiles": [
+      "wwwroot/js/tournament.js"
+    ]
   }
 ]
