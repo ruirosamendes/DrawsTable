@@ -17,16 +17,16 @@ namespace DrawsTable.Controllers
 
         public ActionResult Get()
         {
-            DrawTable draw = new DrawTable(16);
+            DrawTable draw = new DrawTable((int)DrawMap.SixtyFour);
 
             Tournament tournament = new Tournament("Torneio de Mafra", DateTime.Today);
-            string webRootPath = _hostingEnvironment.WebRootPath;
-            string filePath = webRootPath + "\\data\\PlayersAndTeams.txt";
-            tournament.LoadPlayersFromTxt(filePath);
-            tournament.MakeDraw(DrawMap.Sixteen, 4, 3);
+            //string webRootPath = _hostingEnvironment.WebRootPath;
+            //string filePath = webRootPath + "\\data\\PlayersAndTeams.txt";
+            //tournament.LoadPlayersFromTxt(filePath);
+            //tournament.MakeDraw(DrawMap.Sixteen, 4, 3);
 
 
-            draw.Matches = tournament.Matches;
+            //draw.Matches = tournament.Matches;
 
             return Json(draw);
         }

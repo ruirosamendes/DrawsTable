@@ -44,7 +44,7 @@ var draw = {
                 var rowCell = val;
                 var td = $(row).find("td").eq(i);
                 // Set cell Match Player
-                if (rowCell.matchNumber != null)
+                if (rowCell.matchNumber != null &&  _matches != null)
                 {
                     var match = _matches[rowCell.matchNumber - 1];
                     var opponentName; 

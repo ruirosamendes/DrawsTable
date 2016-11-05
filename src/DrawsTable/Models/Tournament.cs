@@ -93,61 +93,119 @@ namespace DrawsTable.Models
             _totalLoadedPlayers = _players.Length;
         }
 
+        //internal void MakeDraw(DrawMap drawMap, int seedsTotal, int bestOfTotal)
+        //{
+        //    Dictionary<int, Player> drawPlayers = new Dictionary<int, Player>();
+
+
+        //    int totalDrawPlayers = (int)drawMap;
+        //    int totalDrawMatches = totalDrawPlayers / TOTAL_MATCH_PLAYERS;
+        //    int matchIncrement = (int)Math.Log(
+        //       Convert.ToDouble(totalDrawMatches),
+        //       Convert.ToDouble(TOTAL_MATCH_PLAYERS));
+
+        //    int playerIndexForward = 0;
+        //    int playerIndexBackward = totalDrawPlayers - 1;
+        //    int playerPos = 1;
+
+        //    int matchPosForward = 1;
+        //    int matchPosBackward = totalDrawMatches;
+
+        //    int matchNumber = 1;
+        //    int matchInterval = 0;
+        //    int incrementChangeIndex = 0;
+
+        //    if(_totalLoadedPlayers < 2)
+        //        throw new Exception("Insufficient loaded players. You must load two or more players.");
+        //    // Set matchs
+        //    for (int matchIndex = 0; matchIndex < totalDrawMatches; matchIndex++)
+        //    {
+        //        // Reset interval increment
+        //        if (incrementChangeIndex == 2)
+        //        {
+        //            if (matchInterval == matchIncrement)
+        //                matchInterval = 0;
+        //            else if (matchInterval == 0)
+        //                matchInterval = matchIncrement;
+        //            incrementChangeIndex = 0;
+        //        }
+
+        //        Match match = new Match(_players[playerIndexForward], _players[playerIndexBackward], bestOfTotal);
+        //        // Odd match
+        //        if ((matchNumber % 2) != 0)
+        //        {
+        //            match.Number = matchPosForward + matchInterval;
+        //            matchPosForward++;
+        //        }
+        //        // Even match
+        //        else
+        //        {
+        //            match.Number = matchPosBackward - matchInterval;
+        //            matchPosBackward--;
+        //        }
+        //        // Add match on Draw position.
+        //        drawMatchs.Add(match.Number.Value, match);
+        //        // Change indexes.
+        //        incrementChangeIndex++;
+        //        playerIndexForward++;
+        //        playerIndexBackward--;
+        //        matchNumber++;
+        //        // Save players with draw ordered.
+        //        drawPlayers.Add(playerPos, match.Opponent1 as Player);
+        //        drawPlayers.Add(playerPos + 1, match.Opponent2 as Player);
+        //        playerPos += 2;
+
+        //    }
+        //}
+
         internal void MakeDraw(DrawMap drawMap, int seedsTotal, int bestOfTotal)
         {
             Dictionary<int, Player> drawPlayers = new Dictionary<int, Player>();
 
-
             int totalDrawPlayers = (int)drawMap;
             int totalDrawMatches = totalDrawPlayers / TOTAL_MATCH_PLAYERS;
-            int matchIncrement = (int)Math.Log(
-               Convert.ToDouble(totalDrawMatches),
-               Convert.ToDouble(TOTAL_MATCH_PLAYERS));
+
 
             int playerIndexForward = 0;
             int playerIndexBackward = totalDrawPlayers - 1;
             int playerPos = 1;
-            int matchPosForward = 1;
-            int matchPosBackward = totalDrawMatches;
-            int matchNumber = 1;
-            int matchInterval = 0;
-            int incrementChangeIndex = 0;
 
-            if(_totalLoadedPlayers < 2)
+            int matchPosUp = 1;
+            int matchPosDown = totalDrawMatches;
+
+          
+
+
+            if (_totalLoadedPlayers < 2)
                 throw new Exception("Insufficient loaded players. You must load two or more players.");
-            // Set matchs
-            for (int matchIndex = 0; matchIndex < totalDrawMatches; matchIndex++)
-            {
-                // Reset interval increment
-                if (incrementChangeIndex == 2)
-                {
-                    if (matchInterval == matchIncrement)
-                        matchInterval = 0;
-                    else if (matchInterval == 0)
-                        matchInterval = matchIncrement;
-                    incrementChangeIndex = 0;
-                }
 
-                Match match = new Match(_players[playerIndexForward], _players[playerIndexBackward], bestOfTotal);
-                // Odd match
-                if ((matchNumber % 2) != 0)
-                {
-                    match.Number = matchPosForward + matchInterval;
-                    matchPosForward++;
-                }
-                // Even match
-                else
-                {
-                    match.Number = matchPosBackward - matchInterval;
-                    matchPosBackward--;
-                }
-                // Add match on Draw position.
-                drawMatchs.Add(match.Number.Value, match);
+            Match match;
+            // First Match
+            match = new Match(_players[playerIndexForward], _players[playerIndexBackward], bestOfTotal);
+            match.Number = matchPosUp;
+            drawMatchs.Add(match.Number.Value, match);
+            // Last Match
+            match = new Match(_players[playerIndexForward++], _players[playerIndexBackward--], bestOfTotal);
+            match.Number = matchPosDown;
+            drawMatchs.Add(match.Number.Value, match);
+
+            int matchIncrement = (int)Math.Log(
+   Convert.ToDouble(totalDrawMatches),
+   Convert.ToDouble(TOTAL_MATCH_PLAYERS));
+
+            // Process left of the half matches
+            for (int matchIndex = 0; matchIndex < (totalDrawMatches/2)-2; matchIndex++)
+            {
+                // Create match
+                //match = new Match(_players[playerIndexForward], _players[playerIndexBackward], bestOfTotal);
+                //match.Number
+
+
+                //// Add match on Draw position.
+                //drawMatchs.Add(match.Number.Value, match);
                 // Change indexes.
-                incrementChangeIndex++;
                 playerIndexForward++;
                 playerIndexBackward--;
-                matchNumber++;
                 // Save players with draw ordered.
                 drawPlayers.Add(playerPos, match.Opponent1 as Player);
                 drawPlayers.Add(playerPos + 1, match.Opponent2 as Player);
